@@ -76,18 +76,15 @@ docker run -p 5000:5000 \
 ```
 
 3. Frontend
- 
+```sh
 Static HTML/JS: index.html
-
 NGINX config: nginx.conf
-
 Entrypoint: entrypoint.sh
+```
 
 4.Docker Build (for GKE)
 
 ```sh
-Copy
-Edit
 docker build -t <your-frontend-image> .
 docker run -p 8080:80 <your-frontend-image>
 ```
