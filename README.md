@@ -111,7 +111,7 @@ Add/view products, see health status live.
 
 All API traffic is securely proxied to backend.
 
-##File Overview##
+## File Overview 
 
 ```sh
 app.py — Flask API server for product CRUD & health
@@ -127,7 +127,7 @@ entrypoint.sh — Entrypoint script for Docker/NGINX
 main.tf — Terraform infrastructure code
 ```
 
-Security Notes
+### Security Notes
 
 No API tokens, DB passwords, or sensitive state are tracked in git (see .gitignore).
 
