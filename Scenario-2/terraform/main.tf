@@ -58,7 +58,7 @@ variable "frontend_image" {
   default     = "us-central1-docker.pkg.dev/varun-verma-cwx-internal/my-repo2/frontend"
 }
 
-# Enable required Google APIs
+# here i Enabled required Google APIs
 resource "google_project_service" "compute" {
   service            = "compute.googleapis.com"
   disable_on_destroy = false
@@ -84,13 +84,13 @@ resource "google_project_service" "servicenetworking" {
   disable_on_destroy = false
 }
 
-# Create a Service Account for VM & GKE
+# Creating a Service Account (last time i used it and didnt let itself destroy lol)
 resource "google_service_account" "sa" {
   account_id   = "varun-verma-sa"
   display_name = "Terraform-created service account for VM and GKE"
 }
 
-# Grant the Service Account necessary IAM roles
+# Granting necessary IAM roles
 resource "google_project_iam_member" "sa_cloudsql_client" {
   project = var.project
   role    = "roles/cloudsql.client"
@@ -121,12 +121,12 @@ resource "google_project_iam_member" "sa_serviceaccount_user" {
   member  = "serviceAccount:${google_service_account.sa.email}"
 }
 
-# Use existing private IP range for Cloud SQL (VPC peering)
+# i sued the exiwsting default vpc here , not sure ... have to ask Kartik
 data "google_compute_global_address" "private_ip_range" {
   name = "default-ip-range"
 }
 
-# Establish a VPC peering for the private IP
+# GPT made me VPC peer , have to look into this
 resource "google_service_networking_connection" "private_vpc_connection" {
   network                 = "projects/${var.project}/global/networks/default"
   service                 = "servicenetworking.googleapis.com"
@@ -165,10 +165,10 @@ resource "google_sql_database" "appdb" {
 resource "google_sql_user" "db_user" {
   name     = "appuser"
   instance = google_sql_database_instance.db_instance.name
-  password = "appuser123"  # In production, use a more secure password and consider using Secret Manager
+  password = "appuser123" #they told Rishab to use Secrets , ill have to look into it after the demo
 }
 
-# Create a Compute Engine VM running Debian, pulling the backend Docker image
+# Created a Compute Engine VM running Debian, pulling the backend Docker image
 resource "google_compute_instance" "backend_vm" {
   name         = "backend-vm"
   machine_type = "e2-medium"
@@ -184,7 +184,7 @@ resource "google_compute_instance" "backend_vm" {
 
   network_interface {
     network = "default"
-    # Give the VM an external IP so you can SSH for troubleshooting
+   #here giving the VM and external IP cause i know this idiot will fail and ill have to ssh again
     access_config {}
   }
 
@@ -193,7 +193,7 @@ resource "google_compute_instance" "backend_vm" {
     scopes = ["https://www.googleapis.com/auth/cloud-platform"]
   }
 
-  # Startup script to install Docker, configure Artifact Registry, pull & run backend
+  # Startup script to install Docker, configure Artifact Registry, pull & run backend (all hail GPT)
   metadata_startup_script = <<-EOT
     #!/bin/bash
     set -e
@@ -281,7 +281,7 @@ resource "google_container_cluster" "primary" {
   ]
 }
 
-# Kubernetes Deployment for the frontend (one replica, listening on port 80)
+# Kubernetes Deployment for the frontend (one replica cause apparently it uses 75 dollars ?!! tf , listening on port 80)
 resource "kubernetes_deployment" "frontend" {
   metadata {
     name   = "frontend-deployment"
@@ -321,7 +321,7 @@ resource "kubernetes_service" "frontend" {
   metadata {
     name = "frontend-service"
     annotations = {
-      # Ensure we get a Google Cloud external load balancer
+      
       "cloud.google.com/load-balancer-type" = "External"
     }
   }
