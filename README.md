@@ -75,23 +75,24 @@ docker run -p 5000:5000 \
     <your-image-name>
 ```
 
-3. Frontend
+## 3. Frontend ##
 ```sh
 Static HTML/JS: index.html
 NGINX config: nginx.conf
 Entrypoint: entrypoint.sh
 ```
 
-4.Docker Build (for GKE)
+## ** -> Docker Build (for GKE) ##
 
 ```sh
 docker build -t <your-frontend-image> .
 docker run -p 8080:80 <your-frontend-image>
 ```
 
-API and health requests (/api/*, /health) are reverse-proxied to the backend VM by internal DNS.
+-> API and health requests (/api/*, /health) are reverse-proxied to the backend VM by internal DNS.
 
-4. Infrastructure
+### 4. Infrastructure ###
+
 All GCP resources (VM, GKE, Cloud SQL, IAM, firewall, etc.) are managed via main.tf and your other Terraform files.
 
 ```sh
@@ -100,7 +101,6 @@ terraform apply
 ```
 
 Provisioning includes service accounts, networking, internal DNS, and secure-by-default settings.
-
 Outputs include public frontend URL and DB info.
 
 ### 5. Usage ###
