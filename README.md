@@ -127,6 +127,7 @@ Cloud SQL and backend are accessible only within the GCP VPC (never public).
 NGINX uses GCP internal DNS for backend proxying, so no IPs are ever hardcoded.
 
 Credits
-Created by Varun Verma
-CloudWerx Technologies
-(c) 2024
+
+-> Created by Varun Verma
+-> CloudWerx Technologies
+
