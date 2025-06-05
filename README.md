@@ -10,7 +10,7 @@ A full-stack, cloud-native product dashboard deployed on **Google Cloud Platform
 - **Persistent PostgreSQL database** (Cloud SQL)
 - **Static frontend**
 - **NGINX reverse proxy**: Handles API and health requests via internal GCP DNS (no IP hardcoding! , took me some time but I managed to do it after some 23-ish tries )
-- **Infrastructure-as-code**: Fully automated deploy/redeploy with Terraform (VM, GKE, firewall, DB, IAM, everything)
+- **Infrastructure-as-code**: Fully automated deploy/redeploy with Terraform (VM, GKE, firewall, DB, IAM)
 - **Secure by default**: Backend and database are **never public**, only accessible within GCP VPC
 - **Cloud-native**: Scalable, robust, easily portable across projects
 
@@ -18,7 +18,7 @@ A full-stack, cloud-native product dashboard deployed on **Google Cloud Platform
 
 ## Architecture
 
-[BROWSER] ->  [Frontend Load Balancer (GKE, NGINX, Static HTML)] -> [NGINX reverse proxies /api and /health to backend-vm.c.varun-verma-cwx-internal.internal:5000] -> [Backend VM: Flask API (Docker)] -> [Cloud SQL (Postgres)]
+[BROWSER] ->  [Frontend Load Balancer (GKE, NGINX, Static HTML)] -> [NGINX reverse proxies /api and /health to backend-vm -> port :xxxx ] -> [Backend VM: Flask API (Docker)] -> [Cloud SQL (Postgres)]
 
 
 
@@ -116,6 +116,13 @@ nginx.conf — NGINX reverse proxy for API/health to backend VM
 entrypoint.sh — Entrypoint script for Docker/NGINX
 
 main.tf — Terraform infrastructure code
+```
+
+## Next Steps :
+```sh
+    I plan on modularizing the terraform File , for better readability and portabilty 
+    Using Secrets as a way of securely injecting passwords and other credentials
+    Playing less "cheliya cheliya" song than i did the first time i did this
 ```
 
 ### Security Notes
