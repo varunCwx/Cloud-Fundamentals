@@ -82,7 +82,7 @@ NGINX config: nginx.conf
 Entrypoint: entrypoint.sh
 ```
 
-## ** -> Docker Build (for GKE) ##
+##  -> Docker Build (for GKE) ##
 
 ```sh
 docker build -t <your-frontend-image> .
