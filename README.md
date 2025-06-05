@@ -42,17 +42,20 @@ A full-stack, cloud-native product dashboard deployed on **Google Cloud Platform
 
 ### 1. **Clone and Configure**
 
-
+```sh
 git clone https://github.com/varunCwx/Cloud-Fundamentals.git
+
 cd Cloud-Fundamentals
+```
+
 
 ### 2. **Backend**
 
 Requirements: requirements.txt
 
-Local development
+For Local development :-
 
-
+```sh
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
@@ -62,49 +65,58 @@ export DB_HOST=...
 export DB_PORT=5432
 export DB_NAME=appdb
 python app.py
+```
 
 ### Docker Build (for GCP VM)
-
+```sh
 docker build -t <your-image-name> .
 docker run -p 5000:5000 \
     -e DB_USER=... -e DB_PASSWORD=... -e DB_HOST=... -e DB_PORT=5432 -e DB_NAME=appdb \
     <your-image-name>
-
+```
 
 3. Frontend
+ 
 Static HTML/JS: index.html
 
 NGINX config: nginx.conf
 
 Entrypoint: entrypoint.sh
 
-Docker Build (for GKE)
-sh
+4.Docker Build (for GKE)
+
+```sh
 Copy
 Edit
 docker build -t <your-frontend-image> .
 docker run -p 8080:80 <your-frontend-image>
+```
+
 API and health requests (/api/*, /health) are reverse-proxied to the backend VM by internal DNS.
 
 4. Infrastructure
 All GCP resources (VM, GKE, Cloud SQL, IAM, firewall, etc.) are managed via main.tf and your other Terraform files.
 
-Deploy on GCP 
+```sh
 terraform init
 terraform apply
+```
+
 Provisioning includes service accounts, networking, internal DNS, and secure-by-default settings.
 
 Outputs include public frontend URL and DB info.
 
-5. Usage
+### 5. Usage ###
+
 Visit the frontend load balancer IP output by Terraform in your browser.
 
 Add/view products, see health status live.
 
 All API traffic is securely proxied to backend.
 
-File Overview
+##File Overview##
 
+```sh
 app.py — Flask API server for product CRUD & health
 
 requirements.txt — Python dependencies
@@ -116,6 +128,7 @@ nginx.conf — NGINX reverse proxy for API/health to backend VM
 entrypoint.sh — Entrypoint script for Docker/NGINX
 
 main.tf — Terraform infrastructure code
+```
 
 Security Notes
 
