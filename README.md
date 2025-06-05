@@ -1,4 +1,4 @@
-####Cloud Product Dashboard####
+#### Cloud Product Dashboard 
 
 A full-stack, cloud-native product dashboard deployed on **Google Cloud Platform** with automated infrastructure using Terraform, a Python/Flask backend, a static HTML (inline JS) , NGINX reverse proxy, and Cloud SQL (PostgreSQL).
 
@@ -18,16 +18,7 @@ A full-stack, cloud-native product dashboard deployed on **Google Cloud Platform
 
 ## Architecture
 
-[BROWSER]
-    |
-    v
-[Frontend Load Balancer (GKE, NGINX, Static HTML)]
-    |
-    v
-[NGINX reverse proxies /api and /health to backend-vm.c.varun-verma-cwx-internal.internal:5000]
-    |
-    v
-[Backend VM: Flask API (Docker)] -- [Cloud SQL (Postgres)]
+[BROWSER] ->  [Frontend Load Balancer (GKE, NGINX, Static HTML)] -> [NGINX reverse proxies /api and /health to backend-vm.c.varun-verma-cwx-internal.internal:5000] -> [Backend VM: Flask API (Docker)] -> [Cloud SQL (Postgres)]
 
 
 
