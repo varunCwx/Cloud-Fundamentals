@@ -42,18 +42,17 @@ A full-stack, cloud-native product dashboard deployed on **Google Cloud Platform
 
 ### 1. **Clone and Configure**
 
-```sh
+
 git clone https://github.com/varunCwx/Cloud-Fundamentals.git
 cd Cloud-Fundamentals
-2. Backend
-Code: app.py
+
+### 2. **Backend**
 
 Requirements: requirements.txt
 
-Local development (optional)
-sh
-Copy
-Edit
+Local development
+
+
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
@@ -63,14 +62,15 @@ export DB_HOST=...
 export DB_PORT=5432
 export DB_NAME=appdb
 python app.py
-Docker Build (for GCP VM)
-sh
-Copy
-Edit
+
+### Docker Build (for GCP VM)
+
 docker build -t <your-image-name> .
 docker run -p 5000:5000 \
     -e DB_USER=... -e DB_PASSWORD=... -e DB_HOST=... -e DB_PORT=5432 -e DB_NAME=appdb \
     <your-image-name>
+
+
 3. Frontend
 Static HTML/JS: index.html
 
@@ -89,10 +89,7 @@ API and health requests (/api/*, /health) are reverse-proxied to the backend VM 
 4. Infrastructure
 All GCP resources (VM, GKE, Cloud SQL, IAM, firewall, etc.) are managed via main.tf and your other Terraform files.
 
-Deploy on GCP
-sh
-Copy
-Edit
+Deploy on GCP 
 terraform init
 terraform apply
 Provisioning includes service accounts, networking, internal DNS, and secure-by-default settings.
@@ -107,6 +104,7 @@ Add/view products, see health status live.
 All API traffic is securely proxied to backend.
 
 File Overview
+
 app.py — Flask API server for product CRUD & health
 
 requirements.txt — Python dependencies
@@ -120,6 +118,7 @@ entrypoint.sh — Entrypoint script for Docker/NGINX
 main.tf — Terraform infrastructure code
 
 Security Notes
+
 No API tokens, DB passwords, or sensitive state are tracked in git (see .gitignore).
 
 Cloud SQL and backend are accessible only within the GCP VPC (never public).
