@@ -1,0 +1,41 @@
+# === Terraform local files ===
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
+
+# === Sensitive variable files ===
+*.tfvars
+*.tfvars.json
+*_secrets.*
+
+# === Terraform plan files ===
+*.tfplan
+
+# === Override files ===
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# === Crash logs ===
+crash.log
+crash.*.log
+.terraform.tfstate.lock.info
+
+# === System junk ===
+.DS_Store
+Thumbs.db
+*.swp
+*.bak
+*.tmp
+
+# === Ignore backend-specific artifacts ===
+*.bak.tf
+
+# === Ignore LFS-sized binaries accidentally downloaded ===
+*.exe
+*.zip
+*.tar.gz
